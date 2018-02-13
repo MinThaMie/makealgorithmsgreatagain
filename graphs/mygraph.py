@@ -289,6 +289,12 @@ class Graph(object):
 
         self._v.append(vertex)
 
+    def del_vertex(self, vertex: "Vertex"):
+        for e in vertex.incidence:
+            self.del_edge(e)
+        self._v.remove(vertex)
+
+
     def add_edge(self, edge: "Edge"):
         """
         Add an edge to the graph. And if necessary also the vertices.
@@ -312,6 +318,11 @@ class Graph(object):
 
         edge.head._add_incidence(edge)
         edge.tail._add_incidence(edge)
+
+    def del_edge(self, edge: "Edge"):
+        self._e.remove(edge)
+        edge.head.incidence.remove(edge)
+        edge.tail.incidence.remove(edge)
 
     def __add__(self, other: "Graph") -> "Graph":
         """

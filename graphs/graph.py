@@ -313,6 +313,12 @@ class Graph(object):
         edge.head._add_incidence(edge)
         edge.tail._add_incidence(edge)
 
+
+    def del_edge(self, edge: "Edge"):
+        self._e.remove(edge)
+        edge.head.incidence.remove(edge)
+        edge.tail.incidence.remove(edge)
+
     def __add__(self, other: "Graph") -> "Graph":
         """
         Make a disjoint union of two graphs.
@@ -378,6 +384,7 @@ class UnsafeGraph(Graph):
 
         edge.head._add_incidence(edge)
         edge.tail._add_incidence(edge)
+
 
     def find_edge(self, u: "Vertex", v: "Vertex") -> List["Edge"]:
         left = u._incidence.get(v, None)
